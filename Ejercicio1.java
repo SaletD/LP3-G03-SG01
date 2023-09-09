@@ -30,12 +30,12 @@ public class Main{
     }
 	public static void main(String[] args) {
 	    Scanner sn = new Scanner(System.in);
-	    
 	    boolean salir=false;
 	    int opcion;
 	    do{
 	       System.out.println("--------Menu---------");
 	       System.out.println("1. Añadir");
+	       System.out.println("2. Buscar Contacto");
 	       System.out.println("7. Salir");
 	       System.out.println("Elige una opción");
 	       opcion=sn.nextInt();
@@ -44,6 +44,13 @@ public class Main{
 	               Añadir();
 	               break;
 	           case 2:
+	               if (!agenda.isEmpty()){
+	                      Buscar();
+	                  }else{
+	                      System.out.println("Debes añadir un contacto primero");
+	                  }
+	                  break;
+	           case 3:
 	               salir=true;
 	               break;
 	           default:
@@ -63,5 +70,10 @@ public static void Añadir(){
     Main nuevo=new Main(nombre,telefono,direccion);
     agenda.add(nuevo);
     System.out.println("¡Se añadió el contacto "+nombre+" correctamente!");
+}
+public static void Buscar(){
+    Scanner scanner = new Scanner(System.in);
+    System.out.print ("Ingrese el nombre del contacto: ");
+    String nombusqueda=scanner.nextLine();
 }
 }
