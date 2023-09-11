@@ -1,42 +1,23 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-class Tcompu{
+class Tienda{
     private String nombT;
     private String proT;
     private String identi;
-    private static ArrayList<Main> lista = new ArrayList<>();
-    public Main(String nomT, String proT, String identi){
+    private static ArrayList<Main> computadores = new ArrayList<>();
+    public Tienda(String nomT, String proT, String identi){
         this.nombT=nombT;
         this.proT=proT;
         this.identi=identi;
     }
-    public String getNombT(){
-        return nombT;
-    }
-    public void setNombT(String nombT){
-        this.nombT=nombT;
-    }
-    public String getProT(){
-        return proT;
-    }
-    public void setProT(String proT){
-        this.proT=proT;
-    }
-    public String getIdenti(){
-        return identi;
-    }
-    public void setIdenti(String identi){
-        this.identi=identi;
-    }   
 }
-class computadores{
+class Computadores{
     private String marca;
     private String cantmemoria;
     private String carac;
     private String sistema;
     private String precio;
-    private static ArrayList<Main> lista = new ArrayList<>();
-    public Main(String marca, String cantmemoria, String carac, String sistema, String precio){
+    public Computadores(String marca, String cantmemoria, String carac, String sistema, String precio){
         this.marca=marca;
         this.cantmemoria=cantmemoria;
         this.carac=carac;
@@ -98,8 +79,20 @@ public class Main{
 	}while (!salir);
 	System.out.println("--------FIN--------");
 }
-public static void Añadir(){
+public static void Agregar(){
     Scanner scanner = new Scanner(System.in);
     System.out.print("Ingrese marca del computador: ");
     String marca=scanner.nextLine();
+    System.out.print("Ingrese cantidad de memoria: ");
+    String cantmemoria=scanner.nextLine();
+    System.out.print("Ingrese caracteristicas del procesador: ");
+    String carac=scanner.nextLine();
+    System.out.print("Ingrese sistema operativo: ");
+    String sistema=scanner.nextLine();
+    System.out.print("Ingrese precio del computador: ");
+    String precio=scanner.nextLine();
+    Computadores nuevo=new Tienda(marca,cantmemoria,carac,sistema,precio);
+    computadores.add(nuevo);
+    System.out.println("¡Se añadió el computador correctamente!");
+}
 }
