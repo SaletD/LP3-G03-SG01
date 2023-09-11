@@ -4,11 +4,14 @@ class Tienda{
     private String nombT;
     private String proT;
     private String identi;
-    private static ArrayList<Main> computadores = new ArrayList<>();
-    public Tienda(String nomT, String proT, String identi){
+    private static ArrayList<Computadores> computadores = new ArrayList<>();
+    public Tienda(String nombT, String proT, String identi){
         this.nombT=nombT;
         this.proT=proT;
         this.identi=identi;
+    }
+    public void añadir(Computadores computador) {
+        computadores.add(computador);
     }
 }
 class Computadores{
@@ -27,32 +30,8 @@ class Computadores{
     public String getMarca(){
         return marca;
     }
-    public void seMarca(String marca){
+    public void setMarca(String marca){
         this.marca=marca;
-    }
-    public String getCanti(){
-        return cantmemoria;
-    }
-    public void setCanti(String cantmemoria){
-        this.cantmemoria=cantmemoria;
-    }
-    public String getCarac(){
-        return carac;
-    }
-    public void setCarac(String carac){
-        this.carac=carac;
-    }
-    public String getSis(){
-        return sistema;
-    }
-    public void setSis(String sistema){
-        this.sistema=sistema;
-    } 
-    public String getPre(){
-        return precio;
-    }
-    public void setPre(String precio){
-        this.precio=precio;
     }
 }
 public class Main{
@@ -60,17 +39,25 @@ public class Main{
 	    Scanner sn = new Scanner(System.in);
 	    boolean salir=false;
 	    int opcion;
+	    Tienda tienda=new Tienda("Java Tienda", "Salet Bravo", "12345");
 	    do{
 	       System.out.println("--------Menu---------");
 	       System.out.println("1. Agregar un computador a la tienda");
+	       System.out.println("2. Eliminar un computador de la tienda");
 	       System.out.println("5. Salir");
 	       System.out.println("Elige una opción");
 	       opcion=sn.nextInt();
 	       switch (opcion){
 	           case 1:
-	               Agregar();
+	               Agregar(tienda);
 	               break;
 	           case 2:
+	               if (!computador.isEmpty()){
+	                   Eliminar(tienda);
+	               } else{
+	                 System.out.println("Desbes agreagar una computadora primero");  
+	               }
+	           case 3:
 	               salir=true;
 	               break;
 	           default:
@@ -79,7 +66,7 @@ public class Main{
 	}while (!salir);
 	System.out.println("--------FIN--------");
 }
-public static void Agregar(){
+public static void Agregar(Tienda tienda){
     Scanner scanner = new Scanner(System.in);
     System.out.print("Ingrese marca del computador: ");
     String marca=scanner.nextLine();
@@ -91,8 +78,30 @@ public static void Agregar(){
     String sistema=scanner.nextLine();
     System.out.print("Ingrese precio del computador: ");
     String precio=scanner.nextLine();
-    Computadores nuevo=new Tienda(marca,cantmemoria,carac,sistema,precio);
-    computadores.add(nuevo);
+    Computadores nuevo=new Computadores(marca,cantmemoria,carac,sistema,precio);
+    tienda.añadir(nuevo);
     System.out.println("¡Se añadió el computador correctamente!");
+}
+public static void Eliminar(Tienda tienda){
+    Scanner scanner = new Scanner(System.in);
+    boolean encontrar=false;
+    System.out.print("Ingrese marca del computador: ");
+    String bmarca=scanner.nextLine();
+    ArrayList<Computadores> Eliminar=new ArrayList();
+    for (Tienda computador:agenda){
+        if (computador.getMarca().equals(bmarca)){
+            Eliminar.add(computador);
+        }
+        if(encontrar){
+           for (Tienda contacto:Eliminar){
+               computadores.remove(computador);
+           }
+        }
+        System.out.println("Se elimino correctamente!");
+    }
+    if (!encontrar){
+        System.out.println("No se encontro");
+    }
+    
 }
 }
