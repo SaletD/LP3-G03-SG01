@@ -13,6 +13,9 @@ class Tienda{
     public void añadir(Computadores computador) {
         computadores.add(computador);
     }
+    public void eliminar(Computadores computador){
+        computadores.remove(computador);
+    }
 }
 class Computadores{
     private String marca;
@@ -52,7 +55,7 @@ public class Main{
 	               Agregar(tienda);
 	               break;
 	           case 2:
-	               if (!computador.isEmpty()){
+	               if (!tienda.computadores.isEmpty()){
 	                   Eliminar(tienda);
 	               } else{
 	                 System.out.println("Desbes agreagar una computadora primero");  
@@ -88,13 +91,14 @@ public static void Eliminar(Tienda tienda){
     System.out.print("Ingrese marca del computador: ");
     String bmarca=scanner.nextLine();
     ArrayList<Computadores> Eliminar=new ArrayList();
-    for (Tienda computador:agenda){
+    for (Computadores computador:tienda.computadores){
         if (computador.getMarca().equals(bmarca)){
             Eliminar.add(computador);
+            encontrar=true;
         }
         if(encontrar){
-           for (Tienda contacto:Eliminar){
-               computadores.remove(computador);
+           for (Computadores computador: Eliminar){
+               tienda.computadores.remove(computador);
            }
         }
         System.out.println("Se elimino correctamente!");
@@ -102,6 +106,5 @@ public static void Eliminar(Tienda tienda){
     if (!encontrar){
         System.out.println("No se encontro");
     }
-    
 }
 }
