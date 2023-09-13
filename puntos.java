@@ -4,7 +4,7 @@ class Tienda{
     private String nombT;
     private String proT;
     private String identi;
-    private static ArrayList<Computadores> computadores = new ArrayList<>();
+    public static ArrayList<Computadores> computadores = new ArrayList<>();
     public Tienda(String nombT, String proT, String identi){
         this.nombT=nombT;
         this.proT=proT;
@@ -13,8 +13,13 @@ class Tienda{
     public void añadir(Computadores computador) {
         computadores.add(computador);
     }
-    public void eliminar(Computadores computador){
-        computadores.remove(computador);
+    public void eliminarComputador(String marca) {
+        for (Computadores computador : computadores) {
+            if (computador.getMarca().equalsIgnoreCase(marca)) {
+                computadores.remove(computador);
+                return;
+            }
+        }
     }
 }
 class Computadores{
@@ -36,6 +41,18 @@ class Computadores{
     public void setMarca(String marca){
         this.marca=marca;
     }
+    public String getCanti(){
+        return cantmemoria;
+    }
+    public String getCarac(){
+        return carac;
+    }
+    public String getSis(){
+        return sistema;
+    }
+    public String getPre(){
+        return precio;
+    }
 }
 public class Main{
 	public static void main(String[] args) {
@@ -47,6 +64,8 @@ public class Main{
 	       System.out.println("--------Menu---------");
 	       System.out.println("1. Agregar un computador a la tienda");
 	       System.out.println("2. Eliminar un computador de la tienda");
+	       System.out.println("3. Buscar computador de la tienda");
+	       System.out.println("4. Mostrar computadores de la tienda");
 	       System.out.println("5. Salir");
 	       System.out.println("Elige una opción");
 	       opcion=sn.nextInt();
@@ -60,7 +79,22 @@ public class Main{
 	               } else{
 	                 System.out.println("Desbes agreagar una computadora primero");  
 	               }
+	               break;
 	           case 3:
+	               if (!tienda.computadores.isEmpty()){
+	                   Buscar(tienda);
+	               } else{
+	                 System.out.println("Desbes agreagar una computadora primero");  
+	               }
+	               break;
+	           case 4:
+	               if (!tienda.computadores.isEmpty()){
+	                   Mostrar(tienda);
+	               } else{
+	                 System.out.println("Desbes agreagar una computadora primero");  
+	               }
+	               break;
+	           case 5:
 	               salir=true;
 	               break;
 	           default:
@@ -87,24 +121,46 @@ public static void Agregar(Tienda tienda){
 }
 public static void Eliminar(Tienda tienda){
     Scanner scanner = new Scanner(System.in);
+    System.out.print("Ingrese marca del computador: "); 
+    String marca=scanner.nextLine();
     boolean encontrar=false;
-    System.out.print("Ingrese marca del computador: ");
-    String bmarca=scanner.nextLine();
-    ArrayList<Computadores> Eliminar=new ArrayList();
     for (Computadores computador:tienda.computadores){
-        if (computador.getMarca().equals(bmarca)){
-            Eliminar.add(computador);
+        if (computador.getMarca().equalsIgnoreCase(marca)){
+            tienda.eliminarComputador(marca);
+            System.out.println("¡Se elimino el computador "+marca+" correctamente!");
             encontrar=true;
+            break;
         }
-        if(encontrar){
-           for (Computadores computador: Eliminar){
-               tienda.computadores.remove(computador);
-           }
-        }
-        System.out.println("Se elimino correctamente!");
     }
-    if (!encontrar){
-        System.out.println("No se encontro");
+    if(!encontrar){
+        System.out.println("¡No se encontro la computadora " +marca+"!");
     }
 }
+public static void Buscar(Tienda tienda){
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Ingrese marca del computador: "); 
+    String marca=scanner.nextLine();
+    boolean encontrar=false;  
+    for (Computadores computador:tienda.computadores){
+        if (computador.getMarca().equalsIgnoreCase(marca)){
+            System.out.println("¡Se encontro el computador "+marca+"!");
+            encontrar=true;
+            break;
+        }
+    }
+    if(!encontrar){
+        System.out.println("¡No se encontro la computadora " +marca+"!");
+    }
+}
+public static void Mostrar(Tienda tienda){
+    System.out.println("--------COMPUTADORES--------");
+    for (Computadores computador:tienda.computadores){
+        System.out.println("Marca: "+computador.getMarca());
+        System.out.println("Cantidad de Memoria: "+computador.getCanti());
+        System.out.println("caracteristicas: "+computador.getCarac());
+        System.out.println("Sistema: "+computador.getSis());
+        System.out.println("Precio: "+computador.getPre());
+        System.out.println("-----------------");
+    }
+}    
 }
