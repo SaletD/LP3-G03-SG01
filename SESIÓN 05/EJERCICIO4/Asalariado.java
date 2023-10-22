@@ -1,0 +1,44 @@
+package ejerherencia;
+public class Asalariado {
+    private String nombre;
+    private long dni;
+    private int diasVacaciones;
+
+    public Asalariado(String nombre, long dni, int diasVacaciones) {
+        this.nombre = nombre;
+        this.dni = dni;
+        this.diasVacaciones = diasVacaciones;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public long getDni() {
+        return dni;
+    }
+
+    public void setDni(long dni) {
+        this.dni = dni;
+    }
+
+    public int getDiasVacaciones() {
+        return diasVacaciones;
+    }
+
+    public void setDiasVacaciones(int diasVacaciones) {
+        this.diasVacaciones = diasVacaciones;
+    }
+
+    @Override
+    public String toString() {
+        return "Información del asalariado: \n" +
+               "Nombre: " + getNombre() + "\n" +
+               "DNI: " + getDni() + "\n" +
+               "Días de vacaciones: " + getDiasVacaciones() + "\n";
+    }
+}
