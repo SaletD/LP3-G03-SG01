@@ -1,8 +1,9 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
-public class IntercambioElementos {
+public class Ejer2ses10 {
 
-    // Método genérico para intercambiar elementos en un arreglo
+    
     public static <T> void intercambiarElementos(T[] array, int indice1, int indice2) {
         if (indice1 < 0 || indice1 >= array.length || indice2 < 0 || indice2 >= array.length) {
             System.out.println("Índices fuera de rango. No se puede intercambiar elementos.");
@@ -15,21 +16,38 @@ public class IntercambioElementos {
     }
 
     public static void main(String[] args) {
-        // Ejemplo de uso con un array de enteros
+        Scanner scanner = new Scanner(System.in);
+
+        /*
         Integer[] arrayEnteros = {1, 2, 3, 4, 5};
         System.out.println("Antes del intercambio: " + Arrays.toString(arrayEnteros));
 
-        // Intercambiar elementos en posiciones 1 y 3
-        intercambiarElementos(arrayEnteros, 1, 3);
+        
+        System.out.print("Ingrese el primer índice: ");
+        int indice1 = scanner.nextInt();
+        System.out.print("Ingrese el segundo índice: ");
+        int indice2 = scanner.nextInt();
+
+        
+        intercambiarElementos(arrayEnteros, indice1, indice2);
 
         System.out.println("Después del intercambio: " + Arrays.toString(arrayEnteros));
-
-        // Ejemplo de uso con un array de cadenas
+        */
+        
+        // ejemplo con strings
+        
+        
         String[] arrayCadenas = {"Uno", "Dos", "Tres", "Cuatro", "Cinco"};
         System.out.println("Antes del intercambio: " + Arrays.toString(arrayCadenas));
 
-        // Intercambiar elementos en posiciones 0 y 4
-        intercambiarElementos(arrayCadenas, 0, 4);
+        // Solicitar al usuario los índices a intercambiar
+        System.out.println("Introduce el primer índice: ");
+        int indice1 = scanner.nextInt();
+        System.out.println("Introduce el segundo índice: ");
+        int indice2 = scanner.nextInt();
+
+        // Intercambiar elementos según los índices proporcionados por el usuario
+        intercambiarElementos(arrayCadenas, indice1, indice2);
 
         System.out.println("Después del intercambio: " + Arrays.toString(arrayCadenas));
     }
