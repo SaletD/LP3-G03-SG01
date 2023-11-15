@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class CopiarArreglo {
@@ -11,10 +8,14 @@ public class CopiarArreglo {
         Set<T> set = new HashSet<>();
 
         // Agregar elementos del primer arreglo
-        set.addAll(Arrays.asList(array1));
+        for (T element : array1) {
+            set.add(element);
+        }
 
         // Agregar elementos del segundo arreglo
-        set.addAll(Arrays.asList(array2));
+        for (T element : array2) {
+            set.add(element);
+        }
 
         // Crear un nuevo arreglo con los elementos sin repetir
         return set.toArray(Arrays.copyOf(array1, 0));
@@ -54,44 +55,5 @@ public class CopiarArreglo {
         // Copiar arreglos de Personas
         Persona[] resultadoPersonas = copyArray(arrPersonas1, arrPersonas2);
         System.out.println("Arreglo de Personas sin repetidos: " + Arrays.toString(resultadoPersonas));
-    }
-}
-
-class Producto {
-    private String codigo;
-    private String descripcion;
-    private double precio;
-
-    public Producto(String codigo, String descripcion, double precio) {
-        this.codigo = codigo;
-        this.descripcion = descripcion;
-        this.precio = precio;
-    }
-
-    @Override
-    public String toString() {
-        return "Producto{" +
-                "codigo='" + codigo + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", precio=" + precio +
-                '}';
-    }
-}
-
-class Persona {
-    private String dni;
-    private String nombre;
-
-    public Persona(String dni, String nombre) {
-        this.dni = dni;
-        this.nombre = nombre;
-    }
-
-    @Override
-    public String toString() {
-        return "Persona{" +
-                "dni='" + dni + '\'' +
-                ", nombre='" + nombre + '\'' +
-                '}';
     }
 }
