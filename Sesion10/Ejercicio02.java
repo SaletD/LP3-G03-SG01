@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Ejer2ses10 {
+public class Ejer02ses10 {
 
     
     public static <T> void intercambiarElementos(T[] array, int indice1, int indice2) {
