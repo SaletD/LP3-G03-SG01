@@ -1,59 +1,106 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Arrays;
 
 public class CopiarArreglo {
 
-    // Método genérico para copiar dos arreglos sin elementos repetidos
-    public static <T> T[] copyArray(T[] array1, T[] array2) {
-        Set<T> set = new HashSet<>();
+    public static void main(String[] args) {
+        // Ejemplo con arreglos de tipo String
+        String[] arrayStrings1 = {"a", "b", "c"};
+        String[] arrayStrings2 = {"b", "c", "d"};
+        String[] resultStrings = copyArray(arrayStrings1, arrayStrings2);
+        System.out.println(Arrays.toString(resultStrings));
 
-        // Agregar elementos del primer arreglo
-        for (T element : array1) {
-            set.add(element);
-        }
+        // Ejemplo con arreglos de tipo Producto
+        Producto[] arrayProductos1 = {new Producto(1, "Producto1"), new Producto(2, "Producto2")};
+        Producto[] arrayProductos2 = {new Producto(2, "Producto2"), new Producto(3, "Producto3")};
+        Producto[] resultProductos = copyArray(arrayProductos1, arrayProductos2);
+        System.out.println(Arrays.toString(resultProductos));
 
-        // Agregar elementos del segundo arreglo
-        for (T element : array2) {
-            set.add(element);
-        }
-
-        // Crear un nuevo arreglo con los elementos sin repetir
-        return set.toArray(Arrays.copyOf(array1, 0));
+        // Ejemplo con arreglos de tipo Persona
+        Persona[] arrayPersonas1 = {new Persona("Juan", 25), new Persona("Ana", 30)};
+        Persona[] arrayPersonas2 = {new Persona("Ana", 30), new Persona("Carlos", 22)};
+        Persona[] resultPersonas = copyArray(arrayPersonas1, arrayPersonas2);
+        System.out.println(Arrays.toString(resultPersonas));
     }
 
-    public static void main(String[] args) {
-        // Ejemplos de uso del método copyArray con diferentes tipos de objetos
-        String[] arrStrings1 = {"uno", "dos", "tres"};
-        String[] arrStrings2 = {"dos", "tres", "cuatro"};
+    public static <T> T[] copyArray(T[] array1, T[] array2) {
+        int length = array1.length + array2.length;
+        T[] resultArray = Arrays.copyOf(array1, length);
+        int resultIndex = array1.length;
 
-        Producto[] arrProductos1 = {
-                new Producto("001", "Laptop", 1200.0),
-                new Producto("002", "Teléfono", 500.0)
-        };
-        Producto[] arrProductos2 = {
-                new Producto("002", "Teléfono", 500.0),
-                new Producto("003", "Tablet", 300.0)
-        };
+        for (T element : array2) {
+            if (!containsElement(resultArray, resultIndex, element)) {
+                resultArray[resultIndex] = element;
+                resultIndex++;
+            }
+        }
 
-        Persona[] arrPersonas1 = {
-                new Persona("123", "Juan"),
-                new Persona("456", "María")
-        };
-        Persona[] arrPersonas2 = {
-                new Persona("789", "Carlos"),
-                new Persona("123", "Juan") // Persona repetida
-        };
+        return Arrays.copyOf(resultArray, resultIndex);
+    }
 
-        // Copiar arreglos de Strings
-        String[] resultadoStrings = copyArray(arrStrings1, arrStrings2);
-        System.out.println("Arreglo de Strings sin repetidos: " + Arrays.toString(resultadoStrings));
+    private static <T> boolean containsElement(T[] array, int length, T element) {
+        for (int i = 0; i < length; i++) {
+            if (array[i] != null && array[i].equals(element)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-        // Copiar arreglos de Productos
-        Producto[] resultadoProductos = copyArray(arrProductos1, arrProductos2);
-        System.out.println("Arreglo de Productos sin repetidos: " + Arrays.toString(resultadoProductos));
+    // Clase Producto
+    static class Producto {
+        int id;
+        String nombre;
 
-        // Copiar arreglos de Personas
-        Persona[] resultadoPersonas = copyArray(arrPersonas1, arrPersonas2);
-        System.out.println("Arreglo de Personas sin repetidos: " + Arrays.toString(resultadoPersonas));
+        public Producto(int id, String nombre) {
+            this.id = id;
+            this.nombre = nombre;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            Producto producto = (Producto) obj;
+            return id == producto.id && nombre.equals(producto.nombre);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, nombre);
+        }
+
+        @Override
+        public String toString() {
+            return "Producto{id=" + id + ", nombre='" + nombre + '\'' + '}';
+        }
+    }
+
+    // Clase Persona
+    static class Persona {
+        String nombre;
+        int edad;
+
+        public Persona(String nombre, int edad) {
+            this.nombre = nombre;
+            this.edad = edad;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            Persona persona = (Persona) obj;
+            return edad == persona.edad && nombre.equals(persona.nombre);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(nombre, edad);
+        }
+
+        @Override
+        public String toString() {
+            return "Persona{nombre='" + nombre + "', edad=" + edad + '}';
+        }
     }
 }
